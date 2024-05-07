@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+
+	<!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
+	<div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+		<div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+			<div
+				class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+				<!-- Votre logo ici -->
+				<div class="mt-12 flex flex-col items-center">
+					<h1 class="text-2xl xl:text-3xl font-extrabold">
+						Sign up
+					</h1>
+
+					<!-- Formulaire d'inscription -->
+					<div class="w-full flex-1 mt-8">
+						{{ form_start(registrationForm) }}
+						<!-- Champ Prénom -->
+						{{ form_row(registrationForm.prenom, {
+                            'attr': {'class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'}
+                        }) }}
+
+						<!-- Champ Nom -->
+						{{ form_row(registrationForm.nom, {
+                            'attr': {'class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'}
+                        }) }}
+
+						<!-- Champ Email -->
+						{{ form_row(registrationForm.email, {
+                            'attr': {'class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'}
+                        }) }}
+
+						<!-- Champ Mot de passe -->
+						{{ form_row(registrationForm.plainPassword.first, {
+    						'attr': {'class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'}
+						}) }}
+
+						<!-- Champ Confirmation de mot de passe -->
+						{{ form_row(registrationForm.plainPassword.second, {
+    						'attr': {'class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'}
+						}) }}
+
+
+						<!-- Case à cocher pour les conditions d'utilisation -->
+						{{ form_row(registrationForm.agreeTerms, {
+                            'attr': {'class': 'form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out'}
+                        }) }}
+
+						<!-- Bouton d'inscription -->
+						<button type="submit" class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+							<span class="ml-3">
+								Sign Up
+							</span>
+						</button>
+						{{ form_end(registrationForm) }}
+					</div>
+				</div>
+			</div>
+			<div
+				class="flex-1 bg-indigo-100 text-center hidden lg:flex">
+				<!-- Image décorative ici -->
+				<div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat" style="background-image: url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg');"></div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
