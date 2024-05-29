@@ -1,0 +1,52 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Mes produits
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="mb-0 text-gray-800">Mes produits</h1>
+
+	<p class="mb-4">Ajouter,modifier et supprimer des produits.</p>
+
+	{% if produits is empty %}
+		<p>
+			<b class="text-3xl font-bold">Il n'y a pas de produits de dispo. Du moins pas encore...</b>
+
+		</p>
+
+		<a href="{{ path('user_produit_new')}}" class="btn">Ajouter un produit</a>
+
+
+	{% else %}
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prix</th>
+					<th>Actions</th>
+					<th>
+						<a href="{{ path('user_produit_new')}}" class="link link-hover">Ajouter un produit</a>
+					</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				{% for produit in produits %}
+					<tr class="hover">
+						<td>{{ produit.nom }}</td>
+						<td>{{ produit.prix }}</td>
+						<td>
+							<a href="{{ path('user_produit_show', {'id': produit.id}) }}" class="btn">Voir</a>
+							<a href="{{ path('user_produit_edit', {'id': produit.id}) }}" class="btn">Editer</a>
+							<a href="{{ path('user_produit_delete', {'id': produit.id}) }}" class="btn">Supprimer</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+
+	{% endif %}
+
+{% endblock %}

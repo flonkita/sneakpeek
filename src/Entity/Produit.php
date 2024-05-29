@@ -29,6 +29,9 @@ class Produit
     #[ORM\Column]
     private ?int $Pointure = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Produit
     public function setPointure(int $Pointure): static
     {
         $this->Pointure = $Pointure;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

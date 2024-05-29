@@ -1,0 +1,33 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Modifier un produit
+{% endblock %}
+
+
+{% block body %}
+{{ form_start(formProduit) }}
+
+{% if formProduit.vars.value.image is not empty %}
+	{% set isValueExists = formProduit.vars.value.image is not empty %}
+{% else %}
+	{% set isValueExists = false %}
+{% endif %}
+
+
+{# Si une valeur existe, affichez-la #}
+{% if isValueExists %}
+	<p>Image actuelle :
+	</p>
+	<img src="{{ asset('uploads/' ~ formProduit.vars.value.image) }}" alt="image"/>
+{% endif %}
+
+{# Passez la valeur par défaut au champ 'image' #}
+{{ form_row(formProduit.image, { 'required': not isValueExists }) }}
+{# Passez la valeur par défaut au champ 'image' #}
+
+
+<button type="submit">Terminé</button>
+
+{{ form_end(formProduit) }}
+
+{% endblock %}

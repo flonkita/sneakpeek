@@ -1,25 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Acceuil
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%}
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-<div class="example-wrapper">
-{% if produit is empty %}
-	<p>
-<b class="text-3xl font-bold">Il n'y a pas d'articles de dispo. Du moins pas encore...</b>
+	<div class="example-wrapper">
+		{% if produits is empty %}
+			<p>
+				<b class="text-3xl font-bold">Il n'y a pas d'articles de dispo. Du moins pas encore...</b>
 
-	</p>
+			</p>
 
-<a href="{{ path('app_login')}}" class="btn">Se connecter</a>
+			<a href="{{ path('app_login')}}" class="btn">Se connecter</a>
 
 
-{% else %}
+		{% else %}
 
-{% endif %}
-</div>
+			{% for produit in produits %}
+				<div class="card w-96 bg-base-100 shadow-xl">
+					<figure><img src="{{ asset('/uploads/' ~ produit.image) }}" alt="{{ produit.nom }}"/></figure>
+
+					<div class="card-body">
+						<h2 class="card-title">{{ produit.nom | capitalize}}</h2>
+						<p>
+							{% if produit.description | length > 25 %}
+								{{ produit.description | slice(0, 25) }}...
+							{% else %}
+								{{ produit.description }}
+							{% endif %}
+						</p>
+
+						<div class="card-actions justify-end">
+							<span class="card-price my-auto">{{ produit.prix }}
+								€</span>
+							<button class="btn btn-primary">Buy Now</button>
+						</div>
+						<div class="card-footer justify-start">
+							<p>Ajouté par :
+								{{ produit.user.prenom }}
+								{{ produit.user.nom | slice(0, 1)}}.
+							</p>
+						</div>
+					</div>
+				</div>
+
+			{% endfor %}
+
+
+		{% endif %}
+	</div>
 {% endblock %}

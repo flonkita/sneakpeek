@@ -1,0 +1,14 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Créer un produit
+{% endblock %}
+
+{% block body %}
+
+	
+    {{form_start(formProduit)}}
+        {{ form_widget(formProduit) }}
+        <button type="submit">Créer</button>
+{{ form_end(formProduit,  { render_rest: false }) }}
+
+{% endblock %}

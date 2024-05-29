@@ -1,0 +1,14 @@
+{% extends 'user/base.html.twig' %}
+
+{% block body %}
+
+	<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis cupiditate nihil dolores nobis quaerat atque, quos dolorum id placeat architecto soluta nesciunt sequi exercitationem, commodi eligendi tenetur. Blanditiis, dolor illum.</p>
+
+	<p>
+		Nombre d'utilisateurs :
+		{{ user.prenom }}
+		Nombre de produits :
+		{{ user.products|length }}
+
+	</p>
+{% endblock %}

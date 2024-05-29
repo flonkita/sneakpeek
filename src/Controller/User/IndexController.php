@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin', name: 'user_')]
+#[Route('/user', name: 'user_')]
 class IndexController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -16,7 +16,7 @@ class IndexController extends AbstractController
         $user = $this->getUser();
         // $nombreCommandes = $commandeRepository->countValidatedCommandesByUser($user);
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/home/index.html.twig', [
             // 'nombreCommandes' => $nombreCommandes,
             'user' => $user,
         ]);

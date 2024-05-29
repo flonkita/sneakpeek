@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
-			{% endblock %}
+			{% block title %}
+			{% endblock %} - Sneakpeek
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
 
@@ -33,12 +33,24 @@
 						<ul
 							class="menu menu-horizontal">
 							<!-- Navbar menu content here -->
+							{% if is_granted('ROLE_ADMIN') %}
 							<li>
-								<a>Navbar Item 1</a>
+							<a class="nav-link" href="{{ path('admin_index')}}">Dashboard</a>
 							</li>
 							<li>
-								<a>Navbar Item 2</a>
+							<a class="nav-link" href="{{ path('app_logout')}}">Se Déconnecter</a>
 							</li>
+							{% elseif is_granted('ROLE_USER') %}
+							<li>
+								<a class="nav-link" href="{{ path('user_index')}}">Mon compte</a>
+							</li>
+							<li>
+								<a class="nav-link" href="{{ path('app_logout')}}">Se Déconnecter</a>
+							</li>
+							{% else %}
+								<a class="nav-link" href="{{ path('app_login')}}">Se Connecter</a>
+							{% endif %}
+
 						</ul>
 					</div>
 				</div>

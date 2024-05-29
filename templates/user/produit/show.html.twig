@@ -1,0 +1,42 @@
+{% extends "user/base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<main class="py-10">
+	<div class="container mx-auto px-4 my-10">
+		<div class="flex flex-wrap -mx-4 lg:-mx-5 items-center">
+			<div class="w-full md:w-1/2 px-4 lg:px-5 flex items-center">
+				{% if produit.image %}
+					<img class="w-full" src="{{ asset('/uploads/' ~ produit.image) }}" alt="..."/>
+				{% else %}
+					<img class="w-full mb-5 md:mb-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."/>
+				{% endif %}
+			</div>
+			<div class="w-full md:w-1/2 px-4 lg:px-5">
+				<div class="text-sm mb-1">SNP: BSK-{{produit.id}}</div>
+				<h1 class="text-5xl font-semibold">{{produit.nom|upper}}</h1>
+				<div class="text-lg mb-5">
+					<span>{{produit.prix}}€</span>
+				</div>
+				<p class="lead">{{produit.description}}</p>
+				<div class="flex">
+					<button class="btn" onclick="my_modal_2.showModal()">open modal</button>
+					<dialog id="my_modal_2" class="modal">
+						<div class="modal-box">
+							<h3 class="font-bold text-lg">Supprimer</h3>
+							<p class="py-4">Etes-vous sûr de supprimer ce produit ?</p>
+						</div>
+						<form method="dialog" class="modal-backdrop">
+							<button class="btn">close</button>
+						</form>
+					</dialog>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+
+
+{% endblock %}

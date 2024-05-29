@@ -1,74 +1,91 @@
-{% extends 'base.html.twig' %}
+<html class="h-full bg-white">
 
-{% block title %}Log in!
-{% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			Connexion
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
 
-{% block body %}
-	<form method="post">
-
-		<section class="relative flex flex-wrap lg:h-screen lg:items-center">
-			<div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
-				<div class="mx-auto max-w-lg text-center">
-					<h1 class="text-2xl font-bold sm:text-3xl">Identifiez-vous !</h1>
-
-					<p class="mt-4 text-gray-500">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error neque
-																																		        ipsa culpa autem, at itaque nostrum!
-					</p>
-				</div>
-
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+	<body class="h-full">
+		<div class="flex min-h-full flex-1 ">
+			<div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 h-screen overflow-auto">
+				<div class="mx-auto w-full max-w-lg lg:w-96">
 					<div>
-						<label for="inputEmail" class="sr-only">Email</label>
-
-						<div class="relative">
-							<input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter email"/>
-
-
-							<span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-								<svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
-								</svg>
-							</span>
-						</div>
-					</div>
-
-					<div>
-						<label for="inputPassword" class="sr-only">Password</label>
-
-
-						<div class="relative">
-							<input type="password" name="_password" id="inputPassword" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter password"/>
-
-
-							<span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-								<svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-								</svg>
-							</span>
-						</div>
-					</div>
-
-					<div class="flex items-center justify-between">
-						<p class="text-sm text-gray-500">
-							No account?
-							<a class="underline" href="{{ path('app_register')}}">Sign up</a>
-
+						<img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"/>
+						<h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
+							Sign in to your account
+						</h2>
+						<p class="mt-2 text-sm leading-6 text-gray-500">
+							Not a member?{' '}
+							<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">
+								Start a 14 day free trial
+							</a>
 						</p>
-
-						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-
-						<button type="submit" class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white">
-							Sign in
-						</button>
 					</div>
-			</div>
 
-			<div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
-				<img alt="" src="https://images.unsplash.com/photo-1630450202872-e0829c9d6172?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" class="absolute inset-0 h-full w-full object-cover"/>
-			</div>
-		</section>
+					<div class="mt-10">
+						<div>
+							<form method="post" class="space-y-6">
+								<div>
+									<label for="inputEmail" class="block text-sm font-medium leading-6 text-gray-900">
 
-	</form>
-{% endblock %}
+										Email address
+									</label>
+									<div class="mt-2">
+										<input value="{{ last_username }}" name="_username" id="inputEmail" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+
+									</div>
+								</div>
+
+								<div>
+									<label for="inputPassword" class="block text-sm font-medium leading-6 text-gray-900">
+
+										Password
+									</label>
+									<div class="mt-2">
+										<input name="_password" id="inputPassword" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+									</div>
+								</div>
+
+								<div class="flex items-center justify-between">
+									<div class="flex items-center">
+										<input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+										<label htmlfor="remember-me" class="ml-3 block text-sm leading-6 text-gray-700">
+											Remember me
+										</label>
+									</div>
+
+									<div class="text-sm leading-6">
+										<a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">
+											Forgot password?
+										</a>
+									</div>
+								</div>
+
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+								<div>
+									<button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+										Sign in
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="relative hidden w-0 flex-1 lg:block h-screen overflow-auto">
+				<img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80" alt=""/>
+			</div>
+		</div>
+
+
+	</body>
+</html>
