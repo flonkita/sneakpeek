@@ -32,6 +32,9 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?User $user = null;
 
+    #[ORM\Column]
+    private ?bool $isVedette = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Produit
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isVedette(): ?bool
+    {
+        return $this->isVedette;
+    }
+
+    public function setVedette(bool $isVedette): static
+    {
+        $this->isVedette = $isVedette;
 
         return $this;
     }
