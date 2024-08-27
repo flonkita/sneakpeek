@@ -19,15 +19,13 @@
 
 
 	{% else %}
-		<table class="table">
+		<table class="table mx-auto">
 			<thead>
+				<a href="{{ path('user_produit_new')}}" class="link link-hover">Ajouter un produit</a>
 				<tr>
 					<th>Nom</th>
 					<th>Prix</th>
 					<th>Actions</th>
-					<th>
-						<a href="{{ path('user_produit_new')}}" class="link link-hover">Ajouter un produit</a>
-					</th>
 
 				</tr>
 			</thead>
