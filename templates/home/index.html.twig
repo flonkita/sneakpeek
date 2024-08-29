@@ -45,7 +45,8 @@
 						<div class="card-actions justify-end">
 							<span class="card-price my-auto">{{ produit.prix }}
 								€</span>
-							<button class="btn btn-primary">Buy Now</button>
+							<a class="btn btn-primary" href="{{ path('panier_add', {id: produit.id}) }}">Acheter !</a>
+
 						</div>
 						<div class="card-footer justify-start">
 							<p>Ajouté par :

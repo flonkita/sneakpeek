@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4 page-height-panier">
+		<h1>Votre panier
+		</h1>
+		{# Message flash lors de l'ajout au panier #}
+		{% for message in app.flashes('add_panier') %}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('remove_panier') %}
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('clear_panier') %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
+
+		{% if items is empty %}
+			<p>
+				<b>Votre panier est vide !!</b>
+			</p>
+		{% else %}
+
+			<a href="{{ path('panier_clear') }}" onclick="return confirm('Etes-vous sure de vouloir vider tout le panier ?');" class="btn btn-warning mb-2">
+				<i class="bi-trash-fill me-1"></i>
+				Vider le panier</a>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col"></th>
+						<th scope="col">Produit</th>
+						{# <th scope="col">Catégorie</th> #}
+						<th scope="col">Prix (en €)</th>
+						<th scope="col">Quantité</th>
+						<th scope="col">Total</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in items %}
+						<tr>
+							<th scope="row">{{loop.index}}</th>
+							<td>
+								<img src="{{ asset('/uploads/' ~ item.produit.image) }}" alt="" style="width: 75px; height: 75px; object-fit: contain">
+							</td>
+
+							<td>{{ item.produit.nom }}</td>
+							<td>{{ item.produit.prix }}
+								€</td>
+							<td>{{ item.quantity }}</td>
+							<td>{{ item.produit.prix * item.quantity }}
+								€</td>
+							<td>
+								<a class="btn btn-danger flex-shrink-0" href="{{ path('panier_remove', {id: item.produit.id}) }}">
+									<i class="bi bi-cart-dash-fill me-1"></i>
+								</a>
+								<a class="btn btn-primary flex-shrink-0" href="{{ path('panier_add', {id: item.produit.id}) }}">
+									<i class="bi-cart-plus-fill me-1"></i>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="5">TOTAL</td>
+						<td>{{ total }}
+							€</td>
+						<td>
+
+							{% if is_granted('ROLE_USER') %}
+								<a href="#!" class="btn btn-primary flex-shrink-0">
+									<span>
+										<i class="bi bi-credit-card-2-back-fill"></i>
+										Payer
+										{{total}}
+										€
+									</span>
+								</a>
+							{% else %}
+								<a href="{{ path('app_login') }}" class="btn btn-success flex-shrink-0">
+									<span>
+										<i class="bi bi-person-check"></i>
+										Finaliser ma commande
+									</span>
+								</a>
+							{% endif %}
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+
+		{% endif %}
+	</div>
+{% endblock %}
