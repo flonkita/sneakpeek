@@ -35,6 +35,9 @@ class Produit
     #[ORM\Column]
     private ?bool $isVedette = null;
 
+    #[ORM\ManyToOne(inversedBy: 'CommandeProduit')]
+    private ?Commande $commandeProduit = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Produit
     public function setVedette(bool $isVedette): static
     {
         $this->isVedette = $isVedette;
+
+        return $this;
+    }
+
+    public function getCommandeProduit(): ?Commande
+    {
+        return $this->commandeProduit;
+    }
+
+    public function setCommandeProduit(?Commande $commandeProduit): static
+    {
+        $this->commandeProduit = $commandeProduit;
 
         return $this;
     }
