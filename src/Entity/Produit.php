@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,8 +37,16 @@ class Produit
     #[ORM\Column]
     private ?bool $isVedette = null;
 
-    #[ORM\ManyToOne(inversedBy: 'CommandeProduit')]
-    private ?Commande $commandeProduit = null;
+    /**
+     * @var Collection<int, CommandeProduit>
+     */
+    #[ORM\OneToMany(targetEntity: CommandeProduit::class, mappedBy: 'produit', orphanRemoval: true)]
+    private Collection $commandeProduits;
+
+    public function __construct()
+    {
+        $this->commandeProduits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,14 +137,32 @@ class Produit
         return $this;
     }
 
-    public function getCommandeProduit(): ?Commande
+    /**
+     * @return Collection<int, CommandeProduit>
+     */
+    public function getCommandeProduits(): Collection
     {
-        return $this->commandeProduit;
+        return $this->commandeProduits;
     }
 
-    public function setCommandeProduit(?Commande $commandeProduit): static
+    public function addCommandeProduit(CommandeProduit $commandeProduit): static
     {
-        $this->commandeProduit = $commandeProduit;
+        if (!$this->commandeProduits->contains($commandeProduit)) {
+            $this->commandeProduits->add($commandeProduit);
+            $commandeProduit->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandeProduit(CommandeProduit $commandeProduit): static
+    {
+        if ($this->commandeProduits->removeElement($commandeProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($commandeProduit->getProduit() === $this) {
+                $commandeProduit->setProduit(null);
+            }
+        }
 
         return $this;
     }
