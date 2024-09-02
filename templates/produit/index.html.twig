@@ -1,5 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}
+	{{ produit.nom|capitalize }}
 {% endblock %}
 
+{% block body %}
+	<section class="relative py-5">
+		<div class="w-full mx-auto px-4 sm:px-6 lg:px-0">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mx-auto max-md:px-2">
+				<div class="img">
+					<div class="img-box h-full max-lg:mx-auto">
+						{% if produit.image %}
+							<img src="{{ asset('/uploads/' ~ produit.image) }}" alt="{{ produit.nom }}" class="max-lg:mx-auto lg:ml-auto h-full">
+						{% else %}
+							<img src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." class="max-lg:mx-auto lg:ml-auto h-full">
+						{% endif %}
+					</div>
+				</div>
+				<div class="data w-full lg:pr-8 pr-0 xl:justify-start justify-center flex items-center max-lg:pb-10 xl:my-2 lg:my-5 my-0">
+					<div class="data w-full max-w-xl">
+						<h2 class="font-manrope font-bold text-3xl leading-10 text-gray-900 mb-2 capitalize">{{ produit.nom }}</h2>
+						<div class="flex flex-col sm:flex-row sm:items-center mb-6">
+							<h6 class="font-manrope font-semibold text-2xl leading-9 text-gray-900 pr-5 sm:border-r border-gray-200 mr-5">{{ produit.prix }}€</h6>
+						</div>
+						<p class="text-gray-500 text-base font-normal mb-5 gap-y-4">{{ produit.description }}</p>
+
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 py-8">
+						<a href="{{ path('panier_add', {id: produit.id}) }}" class="group flex items-center justify-center py-4 px-6 bg-indigo-600 rounded-full transition-all duration-300 hover:bg-indigo-700">
+							<svg class="stroke-white group-hover:stroke-gray-200" width="22" height="22" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M11 5.5V16.5M16.5 11H5.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+							</svg>
+							<span class="ml-3 text-white font-semibold text-lg leading-8">Ajouter au panier</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% include "components/footer.html.twig" %}
+{% endblock %}

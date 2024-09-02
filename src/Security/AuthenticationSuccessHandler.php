@@ -22,7 +22,7 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
         if (in_array("ROLE_ADMIN", $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('admin_index'));
         } elseif (in_array("ROLE_USER", $user->getRoles())) {
-            return new RedirectResponse($this->urlGenerator->generate('user_index'));
+            return new RedirectResponse($this->urlGenerator->generate('app_home'));
         }
         
         return new RedirectResponse($this->urlGenerator->generate('app_home'));

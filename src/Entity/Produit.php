@@ -34,7 +34,7 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?User $user = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
     private ?bool $isVedette = null;
 
     /**

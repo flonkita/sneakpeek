@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,14 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(UserRepository $userRepository, ProduitRepository $produitRepository): Response
+    public function index(UserRepository $userRepository, ProduitRepository $produitRepository, CommandeRepository $commandeRepository): Response
     {
         $produits = $produitRepository->findAll();
         $users = $userRepository->findAll();
-        // $commande = $commandeRepository->findBy(['etat' => 'Validée']);
+        $commande = $commandeRepository->findBy(['etat' => 'Validée']);
         return $this->render('admin/home/index.html.twig', [
             'produits' => $produits,
             'users' => $users,
+            'commandes' => $commande
         ]);
     }
 }

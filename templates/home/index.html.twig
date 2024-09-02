@@ -17,6 +17,8 @@
 	</style>
 
 	<div class="example-wrapper">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
 		{% if produits is empty %}
 			<p>
 				<b class="text-3xl font-bold">Il n'y a pas d'articles de dispo. Du moins pas encore...</b>
@@ -45,7 +47,9 @@
 						<div class="card-actions justify-end">
 							<span class="card-price my-auto">{{ produit.prix }}
 								€</span>
-							<a class="btn btn-primary" href="{{ path('panier_add', {id: produit.id}) }}">Acheter !</a>
+							<a class="btn " href="{{ path('panier_add', {id: produit.id}) }}">Acheter !</a>
+<a class="btn " href="{{ path('produit_detail', {id: produit.id}) }}" style="color:#8A5DD9">Voir plus</a>
+
 
 						</div>
 						<div class="card-footer justify-start">
@@ -60,6 +64,8 @@
 			{% endfor %}
 
 
+</div>
 		{% endif %}
 	</div>
+			{% include "components/footer.html.twig" %}
 {% endblock %}

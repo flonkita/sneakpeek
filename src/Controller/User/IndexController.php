@@ -11,13 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(CommandeRepository $commandeRepository): Response
     {
         $user = $this->getUser();
-        // $nombreCommandes = $commandeRepository->countValidatedCommandesByUser($user);
+        $nombreCommandes = $commandeRepository->countValidatedCommandesByUser($user);
 
         return $this->render('user/home/index.html.twig', [
-            // 'nombreCommandes' => $nombreCommandes,
+            'nombreCommandes' => $nombreCommandes,
             'user' => $user,
         ]);
     }

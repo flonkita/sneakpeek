@@ -15,6 +15,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -69,7 +70,7 @@ class PaiementController extends AbstractController
                     'currency' => 'eur',
                     'product_data' => [
                         'name' => $produit->getNom(),
-                        'images' =>  [$produit->getImage() ? $this->getParameter('base_url') . '/uploads/' . $produit->getImage() : 'https://plchldr.co/i/500x500'] // Lien ABSOLU (qui commence par "http(s)://") ; Pas obligatoire
+                        // 'images' =>  [$produit->getImage() ? $this->getParameter('base_url') . '/uploads/' . $produit->getImage() : 'https://plchldr.co/i/500x500'] // Lien ABSOLU (qui commence par "http(s)://") ; Pas obligatoire
                     ],
                     'unit_amount' => $produit->getPrix() * 100 // Prix en CENTIMES
                 ]
@@ -78,7 +79,7 @@ class PaiementController extends AbstractController
 
         // On sauvegarde la commande en BDD
         $em->persist($commande);
-        $em->flush(); // Lien ABSOLU (qui commence par "http(s)://")
+        $em->flush(); // On enregistre la commande en BDD
         // dd($commande);
 
         $checkout = Session::create([
@@ -91,7 +92,6 @@ class PaiementController extends AbstractController
                 'commande' => $commande->getId()
             ], UrlGeneratorInterface::ABSOLUTE_URL),  // Lien ABSOLU (qui commence par "http(s)://")
         ]);
-
 
         return $this->redirect($checkout->url);
     }
@@ -111,6 +111,8 @@ class PaiementController extends AbstractController
         // On vide le panier
         $panierService->clear();
         
+        // Récupérer l'utilisateur
+        /** @var User|null */
         $user = $this->getUser();
 
         // Récupérer les CommandeProduits de la commande
@@ -138,7 +140,7 @@ class PaiementController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address("admin@nkinel.fr", "Nkinel Assist Bot"))
+            ->from(new Address("admin@sneakpeek.fr", "Sneakpeek Assist Bot"))
             ->to($user->getEmail())
             ->subject('Merci de votre achat')
             ->htmlTemplate('emails/facture.html.twig')

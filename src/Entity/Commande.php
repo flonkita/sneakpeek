@@ -34,7 +34,7 @@ class Commande
     /**
      * @var Collection<int, CommandeProduit>
      */
-    #[ORM\OneToMany(targetEntity: CommandeProduit::class, mappedBy: 'commande', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CommandeProduit::class, mappedBy: 'commande',cascade:['persist'], orphanRemoval: true)]
     private Collection $commandeProduits;
 
     public function __construct()
